@@ -1,0 +1,255 @@
+<?xml version="1.0"?>
+<root>
+    <!-- Rename App to Hyper -->
+    <item>
+        <name>Rename App to Hyper</name>
+        <appendix>OS X doesn't have Hyper. This maps the unused App key to Command + Conrol + Option + Shift</appendix>
+
+        <identifier>private.app_to_hyper</identifier>
+
+        <autogen>
+            __KeyToKey__
+            KeyCode::PC_APPLICATION,
+            KeyCode::COMMAND_L, ModifierFlag::OPTION_L | ModifierFlag::SHIFT_L | ModifierFlag::CONTROL_L
+        </autogen>
+    </item>
+
+    <!-- Remapping Shift keys -->
+    <item>
+        <name>Shift to Shift</name>
+        <appendix>+ pressed alone type ( parentheses )</appendix>
+        <appendix>+ pressed together type { braces }</appendix>
+        <!-- <appendix>+ pressed with command type TAB and SHIFT-TAB (application switcher)</appendix> -->
+
+        <identifier>private.shifts_to_parens</identifier>
+
+        <!-- Shifts alone map to parenthesis -->
+        <autogen>
+            __KeyOverlaidModifier__
+            KeyCode::SHIFT_R, ModifierFlag::SHIFT_R | ModifierFlag::NONE,
+            KeyCode::SHIFT_R, KeyCode::KEY_0, ModifierFlag::SHIFT_R
+        </autogen>
+        <autogen>
+            __KeyOverlaidModifier__
+            KeyCode::SHIFT_L, ModifierFlag::SHIFT_L | ModifierFlag::NONE,
+            KeyCode::SHIFT_L, KeyCode::KEY_9, ModifierFlag::SHIFT_L
+        </autogen>
+
+        <!-- Shifts when used together map to curly braces -->
+        <autogen>
+            __KeyToKey__
+            KeyCode::SHIFT_L, ModifierFlag::SHIFT_R,
+            KeyCode::BRACKET_LEFT, ModifierFlag::SHIFT_R
+        </autogen>
+        <autogen>
+            __KeyToKey__
+            KeyCode::SHIFT_R, ModifierFlag::SHIFT_L,
+            KeyCode::BRACKET_RIGHT, ModifierFlag::SHIFT_L
+        </autogen>
+
+        <!-- Shifts when used with the COMMAND key modifier act as TAB -->
+        <!--
+        <autogen>
+            __KeyToKey__
+            KeyCode::SHIFT_L, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_COMMAND,
+            KeyCode::TAB, ModifierFlag::SHIFT_L, ModifierFlag::COMMAND_L
+        </autogen>
+        <autogen>
+            __KeyToKey__
+            KeyCode::SHIFT_R, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_COMMAND,
+            KeyCode::TAB, ModifierFlag::COMMAND_L
+        </autogen>
+        -->
+
+        <!--
+            Remap the "rolls" of () and )( because it's too easy to hit one
+            before finishing the other, and there's no other reason to be
+            pressing both shift keys at once anyway
+        <autogen>__KeyToKey__ KeyCode::SHIFT_L, ModifierFlag::SHIFT_R, KeyCode::KEY_0, ModifierFlag::SHIFT_L, KeyCode::KEY_9, ModifierFlag::SHIFT_L</autogen>
+        <autogen>__KeyToKey__ KeyCode::SHIFT_R, ModifierFlag::SHIFT_L, KeyCode::KEY_9, ModifierFlag::SHIFT_L, KeyCode::KEY_0, ModifierFlag::SHIFT_L</autogen>
+        -->
+        <!--
+            Remap right shift+Space to ') ', because when typing an end parenthesis
+            and then a space I tend to hit space before I let go of right-shift.
+        <autogen>__KeyToKey__ KeyCode::SPACE, ModifierFlag::SHIFT_R, KeyCode::KEY_0, ModifierFlag::SHIFT_L, KeyCode::SPACE</autogen>
+        -->
+
+        <!-- Remap shift+shape to space, in case we haven't completely let go of the shift key yet. -->
+        <autogen>
+            __KeyToKey__
+            KeyCode::SPACE, ModifierFlag::SHIFT_L,
+            KeyCode::SPACE
+        </autogen>
+        <autogen>
+            __KeyToKey__
+            KeyCode::SPACE, ModifierFlag::SHIFT_R,
+            KeyCode::SPACE
+        </autogen>
+    </item>
+
+    <!-- Remapping Command keys -->
+    <item>
+        <name>Command_L to Command_L</name>
+        <appendix>+when you type Command_L only, send Escape</appendix>
+
+        <identifier>private.command_to_control</identifier>
+
+        <autogen>
+            __KeyOverlaidModifier__
+            KeyCode::COMMAND_L,
+            KeyCode::COMMAND_L, KeyCode::ESCAPE
+        </autogen>
+    </item>
+    <item>
+        <name>Command_R to Fn (internal keyboard only)</name>
+        <identifier>private.command_to_fn</identifier>
+        <device_only>
+            DeviceVendor::APPLE_INC,DeviceProduct::APPLE_INTERNAL_KEYBOARD_TRACKPAD_0x0262
+        </device_only>
+        <autogen>
+            __KeyToKey__
+            KeyCode::COMMAND_R,
+            KeyCode::FN
+        </autogen>
+    </item>
+
+    <!-- Arrow keys -->
+    <item>
+      <name>fn+EDSF to Arrow Keys</name>
+      <identifier>private.fn_edsf_to_arrow_keys</identifier>
+      <autogen>
+        __KeyToKey__
+        KeyCode::S, ModifierFlag::FN,
+        KeyCode::CURSOR_LEFT
+      </autogen>
+      <autogen>
+        __KeyToKey__
+        KeyCode::D, ModifierFlag::FN,
+        KeyCode::CURSOR_DOWN
+      </autogen>
+      <autogen>
+        __KeyToKey__
+        KeyCode::F, ModifierFlag::FN,
+        KeyCode::CURSOR_RIGHT
+      </autogen>
+      <autogen>
+        __KeyToKey__
+        KeyCode::E, ModifierFlag::FN,
+        KeyCode::CURSOR_UP
+      </autogen>
+    </item>
+
+    <!--
+         Dvorak keyboard layout
+
+         Implementing this here, rather than using the system keyboard layout
+         changer, because we want to make some additional changes, namely
+         swapping ':' and ';'.
+      -->
+    <item>
+        <name>Use Dvorak Keyboard Layout</name>
+        <appendix>+ swap colon and semicolon</appendix>
+
+        <identifier>private.qwerty2dvorak</identifier>
+
+        <!-- Stolen from snippets/dvorak.xml -->
+        <!-- If ModifierFlag::FN is pressed, retain keys to convert Fn+jkl to 123 (numpad) -->
+        <modifier_not>ModifierFlag::FN</modifier_not>
+
+        <autogen>__KeyToKey__ KeyCode::Q, KeyCode::QUOTE</autogen>
+        <autogen>__KeyToKey__ KeyCode::W, KeyCode::COMMA</autogen>
+        <autogen>__KeyToKey__ KeyCode::E, KeyCode::DOT</autogen>
+        <autogen>__KeyToKey__ KeyCode::R, KeyCode::P</autogen>
+        <autogen>__KeyToKey__ KeyCode::T, KeyCode::Y</autogen>
+        <autogen>__KeyToKey__ KeyCode::Y, KeyCode::F</autogen>
+        <autogen>__KeyToKey__ KeyCode::U, KeyCode::G</autogen>
+        <autogen>__KeyToKey__ KeyCode::I, KeyCode::C</autogen>
+        <autogen>__KeyToKey__ KeyCode::O, KeyCode::R</autogen>
+        <autogen>__KeyToKey__ KeyCode::P, KeyCode::L</autogen>
+        <autogen>__KeyToKey__ KeyCode::BRACKET_LEFT, KeyCode::SLASH</autogen>
+        <autogen>__KeyToKey__ KeyCode::BRACKET_RIGHT, KeyCode::EQUAL</autogen>
+        <autogen>__KeyToKey__ KeyCode::S, KeyCode::O</autogen>
+        <autogen>__KeyToKey__ KeyCode::D, KeyCode::E</autogen>
+        <autogen>__KeyToKey__ KeyCode::F, KeyCode::U</autogen>
+        <autogen>__KeyToKey__ KeyCode::G, KeyCode::I</autogen>
+        <autogen>__KeyToKey__ KeyCode::H, KeyCode::D</autogen>
+        <autogen>__KeyToKey__ KeyCode::J, KeyCode::H</autogen>
+        <autogen>__KeyToKey__ KeyCode::K, KeyCode::T</autogen>
+        <autogen>__KeyToKey__ KeyCode::L, KeyCode::N</autogen>
+        <autogen>__KeyToKey__ KeyCode::SEMICOLON, KeyCode::S</autogen>
+        <autogen>__KeyToKey__ KeyCode::QUOTE, KeyCode::MINUS</autogen>
+        <autogen>__KeyToKey__ KeyCode::X, KeyCode::Q</autogen>
+        <autogen>__KeyToKey__ KeyCode::C, KeyCode::J</autogen>
+        <autogen>__KeyToKey__ KeyCode::V, KeyCode::K</autogen>
+        <autogen>__KeyToKey__ KeyCode::B, KeyCode::X</autogen>
+        <autogen>__KeyToKey__ KeyCode::N, KeyCode::B</autogen>
+        <autogen>__KeyToKey__ KeyCode::COMMA, KeyCode::W</autogen>
+        <autogen>__KeyToKey__ KeyCode::DOT, KeyCode::V</autogen>
+        <autogen>__KeyToKey__ KeyCode::SLASH, KeyCode::Z</autogen>
+        <autogen>__KeyToKey__ KeyCode::MINUS, KeyCode::BRACKET_LEFT</autogen>
+        <autogen>__KeyToKey__ KeyCode::EQUAL, KeyCode::BRACKET_RIGHT</autogen>
+        <autogen>
+            __KeyToKey__
+            KeyCode::Z, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_SHIFT,
+            KeyCode::SEMICOLON
+        </autogen>
+        <autogen>
+            __KeyToKey__
+            KeyCode::Z,
+            KeyCode::SEMICOLON, ModifierFlag::SHIFT_L
+        </autogen>
+    </item>
+
+    <!--
+         "Logitech" wireless presenter
+
+         This is the same as built-in configuration, just specialised to the
+         el-cheapo remote presenter that I have, which is similar to the real
+         Logitech R400 but has different device & vendor IDs.
+
+         Note that I also disable key repeat events for this device, since my
+         repeat rate is usually set quite high. We also need to disable key
+         bounce while presenting, which further reduces the risk of accidentally
+         moving forward too many slides. Not sure how to add debounce as part of
+         this device-only setting...
+      -->
+    <root>
+        <devicevendordef>
+            <vendorname>DX</vendorname>
+            <vendorid>0x0e1f</vendorid>
+        </devicevendordef>
+        <deviceproductdef>
+            <productname>DX_R400</productname>
+            <productid>0x04fb</productid>
+        </deviceproductdef>
+    </root>
+
+    <item>
+        <name>Logitech Wireless Presenter</name>
+        <appendix>Configure Logitech Wireless Presenter for use with Apple Keynote</appendix>
+        <identifier>private.logitech_wireless_presenter_apple_keynote</identifier>
+        <!-- <only>IWORK_KEYNOTE</only> -->
+        <device_only>
+            DeviceVendor::DX,DeviceProduct::DX_R400
+        </device_only>
+
+        <autogen>__KeyToKey__ KeyCode::SHIFT_L, KeyCode::VK_NONE</autogen>
+        <autogen>
+            __KeyToKey__
+            KeyCode::F5, ModifierFlag::SHIFT_L,
+            KeyCode::P,  ModifierFlag::OPTION_L | ModifierFlag::COMMAND_L,
+            Option::NOREPEAT
+        </autogen>
+        <autogen>
+            __KeyToKey__
+            KeyCode::ESCAPE,
+            KeyCode::P,  ModifierFlag::OPTION_L | ModifierFlag::COMMAND_L,
+            Option::NOREPEAT
+        </autogen>
+        <autogen>__KeyToKey__ KeyCode::B,        KeyCode::B,            Option::NOREPEAT</autogen>
+        <autogen>__KeyToKey__ KeyCode::PAGEDOWN, KeyCode::CURSOR_RIGHT, Option::NOREPEAT</autogen>
+        <autogen>__KeyToKey__ KeyCode::PAGEUP,   KeyCode::CURSOR_LEFT,  Option::NOREPEAT</autogen>
+    </item>
+
+</root>
+
