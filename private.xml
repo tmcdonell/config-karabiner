@@ -1,12 +1,33 @@
 <?xml version="1.0"?>
 <root>
+    <!-- ErgoDox (with TMK firmware) -->
+    <devicevendordef>
+      <vendorname>TMK</vendorname>
+      <vendorid>0xfeed</vendorid>
+    </devicevendordef>
+    <deviceproductdef>
+      <productname>ErgoDox</productname>
+      <productid>0x1307</productid>
+    </deviceproductdef>
+
+    <!-- HHKB Professional 2 -->
+    <devicevendordef>
+      <vendorname>PFU</vendorname>
+      <vendorid>0x0853</vendorid>
+    </devicevendordef>
+    <deviceproductdef>
+      <productname>HHKB_Professional_2</productname>
+      <productid>0x0100</productid>
+    </deviceproductdef>
+
     <!-- Rename App to Hyper -->
     <item>
         <name>Rename App to Hyper</name>
-        <appendix>OS X doesn't have Hyper. This maps the unused App key to Command + Conrol + Option + Shift</appendix>
+        <appendix>OS X doesn't have Hyper. This maps the unused App key to Command + Control + Option + Shift</appendix>
 
         <identifier>private.app_to_hyper</identifier>
 
+        <device_not>DeviceVendor::TMK, DeviceProduct::ErgoDox</device_not>
         <autogen>
             __KeyToKey__
             KeyCode::PC_APPLICATION,
@@ -22,6 +43,8 @@
         <!-- <appendix>+ pressed with command type TAB and SHIFT-TAB (application switcher)</appendix> -->
 
         <identifier>private.shifts_to_parens</identifier>
+
+        <device_not>DeviceVendor::TMK, DeviceProduct::ErgoDox</device_not>
 
         <!-- Shifts alone map to parenthesis -->
         <autogen>
@@ -94,6 +117,7 @@
 
         <identifier>private.command_to_control</identifier>
 
+        <device_not>DeviceVendor::TMK, DeviceProduct::ErgoDox</device_not>
         <autogen>
             __KeyOverlaidModifier__
             KeyCode::COMMAND_L,
@@ -101,10 +125,11 @@
         </autogen>
     </item>
     <item>
-        <name>Command_R to Fn (internal keyboard only)</name>
+        <name>Command_R to Fn (HHKB, MBP internal keyboard)</name>
         <identifier>private.command_to_fn</identifier>
         <device_only>
-            DeviceVendor::APPLE_INC,DeviceProduct::APPLE_INTERNAL_KEYBOARD_TRACKPAD_0x0262
+          DeviceVendor::APPLE_INC, DeviceProduct::APPLE_INTERNAL_KEYBOARD_TRACKPAD_0x0262,
+          DeviceVendor::PFU,       DeviceProduct::HHKB_Professional_2
         </device_only>
         <autogen>
             __KeyToKey__
@@ -117,6 +142,8 @@
     <item>
       <name>fn+EDSF to Arrow Keys</name>
       <identifier>private.fn_edsf_to_arrow_keys</identifier>
+
+      <device_not>DeviceVendor::TMK, DeviceProduct::ErgoDox</device_not>
       <autogen>
         __KeyToKey__
         KeyCode::S, ModifierFlag::FN,
@@ -151,6 +178,8 @@
         <appendix>+ swap colon and semicolon</appendix>
 
         <identifier>private.qwerty2dvorak</identifier>
+
+        <device_not>DeviceVendor::TMK, DeviceProduct::ErgoDox</device_not>
 
         <!-- Stolen from snippets/dvorak.xml -->
         <!-- If ModifierFlag::FN is pressed, retain keys to convert Fn+jkl to 123 (numpad) -->
@@ -213,19 +242,17 @@
          moving forward too many slides. Not sure how to add debounce as part of
          this device-only setting...
       -->
-    <root>
-        <devicevendordef>
-            <vendorname>DX</vendorname>
-            <vendorid>0x0e1f</vendorid>
-        </devicevendordef>
-        <deviceproductdef>
-            <productname>DX_R400</productname>
-            <productid>0x04fb</productid>
-        </deviceproductdef>
-    </root>
+    <devicevendordef>
+        <vendorname>DX</vendorname>
+        <vendorid>0x0e1f</vendorid>
+    </devicevendordef>
+    <deviceproductdef>
+        <productname>DX_R400</productname>
+        <productid>0x04fb</productid>
+    </deviceproductdef>
 
     <item>
-        <name>Logitech Wireless Presenter</name>
+        <name>Logitech (fake) Wireless Presenter</name>
         <appendix>Configure Logitech Wireless Presenter for use with Apple Keynote</appendix>
         <identifier>private.logitech_wireless_presenter_apple_keynote</identifier>
         <!-- <only>IWORK_KEYNOTE</only> -->
@@ -252,4 +279,5 @@
     </item>
 
 </root>
-
+<!-- vim: nospell
+ -->
