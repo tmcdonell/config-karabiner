@@ -230,6 +230,64 @@
     </item>
 
     <!--
+         QWERTY keyboard layout
+
+      Remap a hardware mapped Dvorak layout into a querty layout.
+      Useful when playing games on the Ergodox.
+      -->
+    <item>
+        <name>Use QWERTY Keyboard Layout</name>
+        <identifier>private.dvorak2qwerty</identifier>
+
+        <!-- Stolen from snippets/dvorak.xml -->
+        <!-- If ModifierFlag::FN is pressed, retain keys to convert Fn+jkl to 123 (numpad) -->
+        <modifier_not>ModifierFlag::FN</modifier_not>
+
+        <autogen>__KeyToKey__ KeyCode::QUOTE, KeyCode::Q</autogen>
+        <autogen>__KeyToKey__ KeyCode::COMMA, KeyCode::W</autogen>
+        <autogen>__KeyToKey__ KeyCode::DOT, KeyCode::E</autogen>
+        <autogen>__KeyToKey__ KeyCode::P, KeyCode::R</autogen>
+        <autogen>__KeyToKey__ KeyCode::Y, KeyCode::T</autogen>
+        <autogen>__KeyToKey__ KeyCode::F, KeyCode::Y</autogen>
+        <autogen>__KeyToKey__ KeyCode::G, KeyCode::U</autogen>
+        <autogen>__KeyToKey__ KeyCode::C, KeyCode::I</autogen>
+        <autogen>__KeyToKey__ KeyCode::R, KeyCode::O</autogen>
+        <autogen>__KeyToKey__ KeyCode::L, KeyCode::P</autogen>
+        <autogen>__KeyToKey__ KeyCode::SLASH, KeyCode::BRACKET_LEFT</autogen>
+        <autogen>__KeyToKey__ KeyCode::EQUAL, KeyCode::BRACKET_RIGHT</autogen>
+        <autogen>__KeyToKey__ KeyCode::O, KeyCode::S</autogen>
+        <autogen>__KeyToKey__ KeyCode::E, KeyCode::D</autogen>
+        <autogen>__KeyToKey__ KeyCode::U, KeyCode::F</autogen>
+        <autogen>__KeyToKey__ KeyCode::I, KeyCode::G</autogen>
+        <autogen>__KeyToKey__ KeyCode::D, KeyCode::H</autogen>
+        <autogen>__KeyToKey__ KeyCode::H, KeyCode::J</autogen>
+        <autogen>__KeyToKey__ KeyCode::T, KeyCode::K</autogen>
+        <autogen>__KeyToKey__ KeyCode::N, KeyCode::L</autogen>
+        <autogen>__KeyToKey__ KeyCode::S, KeyCode::SEMICOLON</autogen>
+        <autogen>__KeyToKey__ KeyCode::MINUS, KeyCode::QUOTE</autogen>
+        <autogen>__KeyToKey__ KeyCode::Q, KeyCode::X</autogen>
+        <autogen>__KeyToKey__ KeyCode::J, KeyCode::C</autogen>
+        <autogen>__KeyToKey__ KeyCode::K, KeyCode::V</autogen>
+        <autogen>__KeyToKey__ KeyCode::X, KeyCode::B</autogen>
+        <autogen>__KeyToKey__ KeyCode::B, KeyCode::N</autogen>
+        <autogen>__KeyToKey__ KeyCode::W, KeyCode::COMMA</autogen>
+        <autogen>__KeyToKey__ KeyCode::V, KeyCode::DOT</autogen>
+        <autogen>__KeyToKey__ KeyCode::Z, KeyCode::SLASH</autogen>
+        <autogen>__KeyToKey__ KeyCode::BRACKET_LEFT, KeyCode::MINUS</autogen>
+        <autogen>__KeyToKey__ KeyCode::BRACKET_RIGHT, KeyCode::EQUAL</autogen>
+        <autogen>
+            __KeyToKey__
+            KeyCode::SEMICOLON,
+            KeyCode::Z, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_SHIFT
+        </autogen>
+        <autogen>
+            __KeyToKey__
+            KeyCode::SEMICOLON, ModifierFlag::SHIFT_L,
+            KeyCode::Z
+        </autogen>
+    </item>
+
+    <!--
          "Logitech" wireless presenter
 
          This is the same as built-in configuration, just specialised to the
